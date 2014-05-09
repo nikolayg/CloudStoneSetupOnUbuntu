@@ -1,0 +1,4 @@
+Host *
+    User ubuntu
+    IdentityFile ~/CloudStone.pem
+    StrictHostKeyChecking no

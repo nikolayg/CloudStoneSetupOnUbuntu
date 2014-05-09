@@ -1,0 +1,47 @@
+###############################################
+## Additional (Not defined by FABAN) ignores ##
+
+# Eclipse stuff #
+#################
+.settings/
+.classpath
+.project
+*cpd-report.txt
+
+# Javadoc Documentation #
+###################
+*.html
+
+# Compiled source #
+###################
+*.com
+*.class
+*.jar
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+
+# Pem Files #
+#############
+# Do not commit pem/key files!!
+*.pem
+
+
+# Documentation and diargrams #
+###############################
+*.odg
+*.png
+*.jpg
+*.odg 
