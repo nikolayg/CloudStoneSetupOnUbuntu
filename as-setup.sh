@@ -4,7 +4,7 @@
 . ~/base-setup.sh
 cd /cloudstone
 
-dbIPAddress=ec2-54-206-164-22.ap-southeast-2.compute.amazonaws.com
+dbIPAddress=ec2-XX-XX-XX-XX.ap-southeast-2.compute.amazonaws.com
 worker_processes=`grep -c ^processor /proc/cpuinfo `
 worker_connections=1500;
 

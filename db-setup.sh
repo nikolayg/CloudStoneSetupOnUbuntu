@@ -4,7 +4,7 @@
 . ~/base-setup.sh
 cd /cloudstone
 
-asIPAddress=ec2-54-206-131-182.ap-southeast-2.compute.amazonaws.com
+asIPAddress=ec2-XX-XX-XX-XX.ap-southeast-2.compute.amazonaws.com
 conc_users=50
 
 # Setup Tomcat and FABAN

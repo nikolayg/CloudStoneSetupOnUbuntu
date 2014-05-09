@@ -4,7 +4,7 @@
 . ~/base-setup.sh
 cd /cloudstone
 
-clientIPAddress=ec2-54-79-170-221.ap-southeast-2.compute.amazonaws.com
+clientIPAddress=ec2-XX-XX-XX-XX.ap-southeast-2.compute.amazonaws.com
 
 printf "$logPrefix  Set-up Faban $logSuffix"
 
