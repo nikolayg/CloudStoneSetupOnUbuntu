@@ -18,13 +18,14 @@ echo Node Login Username: $userName
 echo Current User on the installer: `whoami` 
 
 
-## Change the IP addresses in the scripts ... 
+## Change the IP addresses in the scripts and the pem file ... 
 printf "$\n\n == Prepare installation scripts... \n "
 for f in as-setup.sh base-setup.sh base-server-setup.sh client-setup.sh db-setup.sh
 do
     sed -i "s/\(clientIPAddress *= *\).*/clientIPAddress=$clientIPAddress/" ./$f
     sed -i "s/\(dbIPAddress *= *\).*/dbIPAddress=$dbIPAddress/" ./$f
     sed -i "s/\(asIPAddress *= *\).*/asIPAddress=$asIPAddress/" ./$f
+    sed -i "s/\(pemFile *= *\).*/pemFile=$pemFile/" ./$f
 done
 
 sed -i "s/\(User *\).*/User $userName/" ./config

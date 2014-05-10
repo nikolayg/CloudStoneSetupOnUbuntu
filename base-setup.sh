@@ -54,7 +54,11 @@ sudo chmod -R 777 /tmp/
 sudo touch /var/log/messages
 sudo chmod 777 /var/log/messages
 
+## Change permission of pem file and set access without prompts
 printf "$logPrefix  Setting SSH access without password $logSuffix"
+pemFile=Cloudstone.pem
+sudo chmod 400 ~/$pemFile 
+
 sudo cp -rf ~/config ~/.ssh/config
 
 
