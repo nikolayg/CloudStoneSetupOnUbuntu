@@ -25,9 +25,7 @@ function getMaxDiskSpaceDir()
         then
             bestNumBlocks=$availableBlocks
             bestIdx=$i
-            #echo "Change ..."
         fi
-        #echo "Available:" $availableBlocks " Best so far" $bestNumBlocks "Directory:" ${diskDefs[$((i+1))]}
     done
     
     echo ${diskDefs[$((bestIdx+1))]}
@@ -50,11 +48,7 @@ function setProperty()
     file=$3
     # If the assignment symbol is not specified use "="
     assignSymbol=${4-=}
-    #echo $property
-    #echo $val
-    #echo sed -i -e "s/^\s*$property\s*$assignSymbol.*/$property$assignSymbol$val/" $file
     sudo sed -i -e "s/^\(\s*\)$property\s*$assignSymbol.*/\1$property$assignSymbol$val/" $file
-    #sudo sed -i "s/^\s*\($property *$assignSymbol *\).*/$property$assignSymbol$val/" $file
 }
 
 
