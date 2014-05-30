@@ -1,23 +1,24 @@
 #!/bin/bash
 
-export logPrefix="\n\n\n\n == == == == == == == == == == == == == == == == == == == == == == == == \n -- -- -- "
-export logSuffix=" -- -- -- \n\n "
-export installSummaryLine="\n\n\n\n\n ==== ==== ==== ==== ==== ==== INSTALLATION SUMMARY ==== ==== ==== ==== ==== ==== \n\n"
+# Import commonly reused functions
+. $startDir/functions.sh
 
-printf "$logPrefix  Metadata $logSuffix"
+# Log Installation environment metadata
+logHeader "Installation Metadata"
 echo USER: `whoami`, $USER
 echo SYSTEM: `uname -a`
-echo CURRENT SERVER TIME: `date`
+echo CURRENT TIME: `date`
+echo START DIR: $startDir
 
 
-printf "$logPrefix  Setting up the installation directory /cloudstone $logSuffix"
 ## Make the CloudStone directory and give appropriate access for everyone
+logHeader " Setting up the installation directory /cloudstone"
 sudo mkdir /cloudstone
 sudo chown -R $USER /cloudstone/
 sudo chmod -R 777 /cloudstone 
 cd /cloudstone
 
-printf "$logPrefix  Setting up common packages $logSuffix"
+logHeader " Setting up common packages"
 
 ## Update repositories
 sudo apt-get update 1> /dev/null
@@ -47,7 +48,7 @@ sudo apt-get install -y git 1> /dev/null
 sudo apt-get install -y sysstat 1> /dev/null
 
 
-printf "$logPrefix  Change permissions and owner of /tmp, create /var/log/messages $logSuffix"
+logHeader "Change permissions and owner of /tmp, create /var/log/messages"
 sudo chown -R $USER /tmp/
 sudo chmod -R 777 /tmp/
 
@@ -55,40 +56,34 @@ sudo touch /var/log/messages
 sudo chmod 777 /var/log/messages
 
 ## Change permission of pem file and set access without prompts
-printf "$logPrefix  Setting SSH access without password $logSuffix"
-pemFile=Cloudstone.pem
+logHeader " Setting SSH access without password"
+pemFile=CloudStone.pem
 sudo chmod 400 ~/$pemFile 
-
 sudo cp -rf ~/config ~/.ssh/config
 
 
-printf "$logPrefix  Setting up Java environment variables $logSuffix"
+## Set up Java
+logHeader " Setting up Java environment variables"
 
 jdklocation=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 jrelocation=$jdklocation/jre
-
-sudo bash -c "echo \"JAVA_HOME=$jdklocation\" >> /etc/environment"
-sudo bash -c "echo \"JDK_HOME=$jdklocation\" >> /etc/environment"
-sudo bash -c "echo \"PATH=$PATH:$jrelocation/bin\" >> /etc/environment"
-
-export JAVA_HOME=$jdklocation
-export JDK_HOME=$jdklocation
-export PATH=$PATH:$jrelocation/bin
+exportVar JAVA_HOME $jdklocation
+exportVar JDK_HOME $jdklocation
+exportVar PATH "$PATH:$jrelocation/bin"
 
 ## Install ANT
-printf "$logPrefix  Setting up ANT $logSuffix"
+logHeader " Setting up ANT"
 sudo apt-get install -y ant
 
 ## Download cloudstone, extract Olio and set its mysql connector
-printf "$logPrefix  Download and setup Olio $logSuffix"
-wget http://parsa.epfl.ch/cloudsuite/software/web.tar.gz 1> /dev/null
+logHeader " Download and setup Olio"
+wget --no-verbose http://parsa.epfl.ch/cloudsuite/software/web.tar.gz 1> /dev/null
 tar xzvf web.tar.gz 1> /dev/null
 
 cp web-release/apache-olio-php-src-0.2.tar.gz .
 tar xzvf apache-olio-php-src-0.2.tar.gz 1> /dev/null
 
-sudo bash -c "echo \"OLIO_HOME=/cloudstone/apache-olio-php-src-0.2\" >> /etc/environment"  
-export OLIO_HOME=/cloudstone/apache-olio-php-src-0.2
+exportVar OLIO_HOME "/cloudstone/apache-olio-php-src-0.2"
 
 cp web-release/mysql-connector-java-5.0.8.tar.gz .
 tar xzvf mysql-connector-java-5.0.8.tar.gz 1> /dev/null
