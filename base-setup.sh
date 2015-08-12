@@ -23,6 +23,9 @@ logHeader " Setting up common packages"
 ## Update repositories
 sudo apt-get update 1> /dev/null
 
+## Install libc6:amd64 - needed by some systmes
+sudo apt-get install -y libc6:amd64 1> /dev/null
+
 ## Uninstall all javas if present
 sudo apt-get purge -y openjdk-\* icedtea-\* icedtea6-\* 1> /dev/null
 
